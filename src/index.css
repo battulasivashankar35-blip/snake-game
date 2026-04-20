@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "Press Start 2P", system-ui;
+  --font-mono: "Space Mono", monospace;
+  
+  --color-glitch-cyan: #00ffff;
+  --color-glitch-magenta: #ff00ff;
+  --color-glitch-yellow: #ffff00;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-[#00ffff] overflow-hidden selection:bg-[#ff00ff] selection:text-black;
+    font-family: var(--font-mono);
+    cursor: crosshair;
+  }
+}
+
+@layer utilities {
+  .font-pixel { font-family: var(--font-pixel); }
+  
+  .glitch-text {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+  }
+  
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00ff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff, 2px 2px #ff00ff;
+    animation: glitch-anim2 1s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
+    5% { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.58deg); }
+    10% { clip: rect(29px, 9999px, 83px, 0); transform: skew(0.4deg); }
+    15% { clip: rect(46px, 9999px, 70px, 0); transform: skew(0.04deg); }
+    20% { clip: rect(61px, 9999px, 76px, 0); transform: skew(0.3deg); }
+    25% { clip: rect(95px, 9999px, 34px, 0); transform: skew(0.09deg); }
+    30% { clip: rect(10px, 9999px, 92px, 0); transform: skew(0.37deg); }
+    35% { clip: rect(73px, 9999px, 20px, 0); transform: skew(0.18deg); }
+    40% { clip: rect(48px, 9999px, 57px, 0); transform: skew(0.35deg); }
+    45% { clip: rect(98px, 9999px, 15px, 0); transform: skew(0.02deg); }
+    50% { clip: rect(91px, 9999px, 81px, 0); transform: skew(0.79deg); }
+    55% { clip: rect(3px, 9999px, 14px, 0); transform: skew(0.38deg); }
+    60% { clip: rect(19px, 9999px, 24px, 0); transform: skew(0.32deg); }
+    65% { clip: rect(51px, 9999px, 15px, 0); transform: skew(0.68deg); }
+    70% { clip: rect(41px, 9999px, 5px, 0); transform: skew(0.53deg); }
+    75% { clip: rect(42px, 9999px, 44px, 0); transform: skew(0.04deg); }
+    80% { clip: rect(34px, 9999px, 13px, 0); transform: skew(0.81deg); }
+    85% { clip: rect(31px, 9999px, 66px, 0); transform: skew(0.54deg); }
+    90% { clip: rect(99px, 9999px, 56px, 0); transform: skew(0.17deg); }
+    95% { clip: rect(41px, 9999px, 10px, 0); transform: skew(0.77deg); }
+    100% { clip: rect(1px, 9999px, 61px, 0); transform: skew(0.7deg); }
+  }
+
+  @keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.15deg); }
+    23% { clip: rect(25px, 9999px, 30px, 0); transform: skew(0.4deg); }
+    49% { clip: rect(85px, 9999px, 90px, 0); transform: skew(0.55deg); }
+    77% { clip: rect(5px, 9999px, 15px, 0); transform: skew(0.2deg); }
+    100% { clip: rect(55px, 9999px, 60px, 0); transform: skew(0.35deg); }
+  }
+
+  .scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.25) 50%
+    ), linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06)
+    );
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .static-noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background: url('https://media.giphy.com/media/oEI9uWUicGPoY/giphy.gif');
+    pointer-events: none;
+    z-index: 45;
+  }
+
+  .crushed-border {
+    border: 4px solid #00ffff;
+    box-shadow: 4px 4px 0px #ff00ff;
+  }
+  
+  .terminal-box {
+    @apply bg-black border-2 border-[#00ffff] p-4 font-mono;
+    box-shadow: -4px 4px 0px #ff00ff;
+  }
+}
